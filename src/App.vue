@@ -2,6 +2,8 @@
 import SearchBar from './components/SearchBar.vue';
 import AppMain from './components/AppMain.vue';
 import axios from 'axios';
+import { store } from './data/store';
+
 
 export default {
   data() {
@@ -9,7 +11,6 @@ export default {
       appname:"BOOLFLIX",
       baseUrl: "https://api.themoviedb.org/3",
       apiKey: "1757eb1da7323401a81905ceca80ad38",
-      filmList: [],
     };
   },
 
@@ -25,8 +26,7 @@ export default {
           },
         })
         .then((response) => {
-          console.log(response.data.result);
-          this.filmList = response.data.results;
+          store.filmList = response.data.results;
         });
     }
   },
@@ -36,7 +36,7 @@ export default {
 <template>
   <SearchBar :title="appname" @performSearch="fetchMovies"></SearchBar>
   <div class="container">
-    <AppMain :filmList="filmList"></AppMain>
+    <AppMain></AppMain>
   </div>
 </template>
 

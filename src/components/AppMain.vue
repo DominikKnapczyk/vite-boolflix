@@ -1,27 +1,32 @@
 <script>
+import { store } from "../data/store";
+import BaseCard from "./BaseCard.vue";
+
 export default {
-  props: {
-    filmList: Array,
-  }
+  data() {
+    return {
+      store,
+    };
+  },
+
+  components: { BaseCard },
 };
 </script>
 
 <template>
-  <h2>Films</h2>
-  <ul v-for="film in filmList">
-    <li>
-      {{ film.title  }}
-    </li>
-    <li>
-      {{ film.original_title  }}
-    </li>
-    <li>
-      {{ film.original_language  }}
-    </li>
-    <li>
-      {{ film.vote_average  }}
-    </li>
-  </ul>
+  <div v-if="store.filmList.length">
+    <h2>Films</h2>
+    <div class="row row-cols-3">
+      <BaseCard 
+      v-for="film in store.filmList"
+         :title="film.title"
+        :originalTitle="film.original_title"
+        :lang="film.original_language"
+        :vote="film.vote_average"
+      />
+    </div>
+  </div>
+  <h2 v-else>Inizia la ricerca</h2>
 </template>
 
 <style lang="scss" scoped></style>
